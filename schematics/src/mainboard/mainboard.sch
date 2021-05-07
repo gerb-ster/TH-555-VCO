@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="7.5.0">
+<eagle version="9.6.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
+<setting keepoldvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -16918,8 +16919,8 @@ Block, Siemens and generic&lt;p&gt;
 <instance part="GND15" gate="1" x="212.09" y="193.04" smashed="yes">
 <attribute name="VALUE" x="209.55" y="190.5" size="1.778" layer="96"/>
 </instance>
-<instance part="IC2" gate="G$4" x="334.01" y="200.66"/>
-<instance part="IC2" gate="G$5" x="381" y="62.23"/>
+<instance part="IC2" gate="G$4" x="334.01" y="200.66" smashed="yes"/>
+<instance part="IC2" gate="G$5" x="381" y="62.23" smashed="yes"/>
 <instance part="R35" gate="G$1" x="276.86" y="199.39" smashed="yes" rot="R90">
 <attribute name="NAME" x="275.3614" y="195.58" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="280.162" y="195.58" size="1.778" layer="96" rot="R90"/>
@@ -17012,10 +17013,14 @@ Block, Siemens and generic&lt;p&gt;
 <instance part="GND19" gate="1" x="270.51" y="123.19" smashed="yes">
 <attribute name="VALUE" x="267.97" y="120.65" size="1.778" layer="96"/>
 </instance>
-<instance part="IC3" gate="P" x="363.22" y="70.485"/>
-<instance part="IC4" gate="P" x="352.425" y="70.485"/>
-<instance part="FRAME1" gate="G$1" x="0" y="0"/>
-<instance part="FRAME1" gate="G$2" x="287.02" y="0"/>
+<instance part="IC3" gate="P" x="363.22" y="70.485" smashed="yes"/>
+<instance part="IC4" gate="P" x="352.425" y="70.485" smashed="yes"/>
+<instance part="FRAME1" gate="G$1" x="0" y="0" smashed="yes"/>
+<instance part="FRAME1" gate="G$2" x="287.02" y="0" smashed="yes">
+<attribute name="LAST_DATE_TIME" x="299.72" y="1.27" size="2.54" layer="94"/>
+<attribute name="SHEET" x="373.38" y="1.27" size="2.54" layer="94"/>
+<attribute name="DRAWING_NAME" x="304.8" y="19.05" size="2.54" layer="94"/>
+</instance>
 <instance part="P-1" gate="1" x="352.425" y="50.165" smashed="yes">
 <attribute name="VALUE" x="349.885" y="47.625" size="1.778" layer="96" rot="R90"/>
 </instance>
@@ -17079,15 +17084,36 @@ Block, Siemens and generic&lt;p&gt;
 <attribute name="NAME" x="139.319" y="133.604" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="134.239" y="133.604" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="JP2" gate="A" x="375.92" y="134.62"/>
-<instance part="JP3" gate="G$1" x="266.7" y="73.66" rot="R180"/>
-<instance part="P-10" gate="1" x="259.08" y="58.42"/>
-<instance part="P-11" gate="1" x="276.86" y="58.42"/>
-<instance part="GND26" gate="1" x="254" y="66.04"/>
-<instance part="GND27" gate="1" x="281.94" y="66.04"/>
-<instance part="P+13" gate="1" x="254" y="86.36"/>
-<instance part="P+14" gate="1" x="281.94" y="86.36"/>
-<instance part="JP4" gate="A" x="375.92" y="157.48"/>
+<instance part="JP2" gate="A" x="375.92" y="134.62" smashed="yes">
+<attribute name="NAME" x="369.57" y="145.415" size="1.778" layer="95"/>
+<attribute name="VALUE" x="369.57" y="124.46" size="1.778" layer="96"/>
+</instance>
+<instance part="JP3" gate="G$1" x="266.7" y="73.66" smashed="yes" rot="R180">
+<attribute name="VALUE" x="270.51" y="83.82" size="1.778" layer="96" rot="R180"/>
+<attribute name="NAME" x="270.51" y="65.278" size="1.778" layer="95" rot="R180"/>
+</instance>
+<instance part="P-10" gate="1" x="259.08" y="58.42" smashed="yes">
+<attribute name="VALUE" x="256.54" y="55.88" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="P-11" gate="1" x="276.86" y="58.42" smashed="yes">
+<attribute name="VALUE" x="274.32" y="55.88" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="GND26" gate="1" x="254" y="66.04" smashed="yes">
+<attribute name="VALUE" x="251.46" y="63.5" size="1.778" layer="96"/>
+</instance>
+<instance part="GND27" gate="1" x="281.94" y="66.04" smashed="yes">
+<attribute name="VALUE" x="279.4" y="63.5" size="1.778" layer="96"/>
+</instance>
+<instance part="P+13" gate="1" x="254" y="86.36" smashed="yes">
+<attribute name="VALUE" x="251.46" y="81.28" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="P+14" gate="1" x="281.94" y="86.36" smashed="yes">
+<attribute name="VALUE" x="279.4" y="81.28" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="JP4" gate="A" x="375.92" y="157.48" smashed="yes">
+<attribute name="NAME" x="369.57" y="163.195" size="1.778" layer="95"/>
+<attribute name="VALUE" x="369.57" y="149.86" size="1.778" layer="96"/>
+</instance>
 <instance part="P+12" gate="1" x="360.68" y="165.1" smashed="yes">
 <attribute name="VALUE" x="358.14" y="160.02" size="1.778" layer="96" rot="R90"/>
 </instance>
@@ -17100,7 +17126,10 @@ Block, Siemens and generic&lt;p&gt;
 <instance part="GND21" gate="1" x="127" y="124.46" smashed="yes">
 <attribute name="VALUE" x="124.46" y="121.92" size="1.778" layer="96"/>
 </instance>
-<instance part="JP1" gate="A" x="375.92" y="114.3"/>
+<instance part="JP1" gate="A" x="375.92" y="114.3" smashed="yes">
+<attribute name="NAME" x="369.57" y="120.015" size="1.778" layer="95"/>
+<attribute name="VALUE" x="369.57" y="106.68" size="1.778" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
