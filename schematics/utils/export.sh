@@ -1,60 +1,68 @@
 #!/bin/bash
 
+RED="\033[1;31m"
+GREEN="\033[1;32m"
+BLUE="\033[1;34m"
+NOCOLOR="\033[0m"
+
 source ../../.project
 
-IO_FILE=../src/ioboard/ioboard.brd
-if [[ -f "$IO_FILE" ]]; then
-    rm -Rf ../../gerber_files/$PROJECT_NAME-ioboard
+for FOLDER in ../src/*; do
+    # if this is a folder, continue
+    if [ -d "$FOLDER" ]; then
+        # if eagel file is present; this is a eagle project, we assume
+        if [[ -f "$FOLDER/eagle.epf" ]]; then
+            FOLDER_NAME=`basename "$FOLDER"`
+            BRD_FILE=$FOLDER/$FOLDER_NAME.brd
 
-    mkdir ./tmp-io
-    eagle -X -dCAMJOB -j./jlcpcb_2_layer_v9.cam -o./tmp-io $IO_FILE
-    mv ./tmp-io/tmp-io/* ./tmp-io/
-    rm -Rf ./tmp-io/tmp-io
-    cd ./tmp-io
-    for f in * ; do mv -- "$f" "$PROJECT_NAME-$f" ; done
-    cd ../
+            echo -e "${BLUE}Found a Eagle Project in $FOLDER for $PROJECT_NAME${NOCOLOR}"
 
-    mv ./tmp-io/$PROJECT_NAME-BOM.html ../BOM/$PROJECT_NAME-ioboard.html
-    echo "$(tail -n +2 ../BOM/$PROJECT_NAME-ioboard.html)" > ../BOM/$PROJECT_NAME-ioboard.html
+            #make sure we have a .brd file
+            if [[ -f "$BRD_FILE" ]]; then
+                # remove old files
+                rm -Rf ../../gerber_files/$PROJECT_NAME-$FOLDER_NAME
 
-    mkdir ../../gerber_files/$PROJECT_NAME-ioboard
-    mv ./tmp-io/* ../../gerber_files/$PROJECT_NAME-ioboard
-    rm -Rf ./tmp-io
+                echo -e "${RED}Removed old Gerber Files for $PROJECT_NAME${NOCOLOR}"
 
-    if [[ -f "../src/ioboard/ioboard.png" ]]; then
-        mv ../src/ioboard/ioboard.png ../$PROJECT_NAME-ioboard.png
+                # run cam job & export to tmp folder and name them properly
+                mkdir ./tmp
+                eagle -X -dCAMJOB -j./jlcpcb_2_layer_v9.cam -o./tmp $BRD_FILE > /dev/null 2>&1
+                mv ./tmp/tmp/* ./tmp/
+                rm -Rf ./tmp/tmp
+                cd ./tmp
+                for f in * ; do mv -- "$f" "$PROJECT_NAME-$f" ; done
+                cd ../
+            
+                echo -e "${BLUE}Created Gerber Files for $PROJECT_NAME${NOCOLOR}"
+
+                # move BOM file to proper directory
+                mv ./tmp/$PROJECT_NAME-BOM.html ../BOM/$PROJECT_NAME-$FOLDER_NAME.html
+                echo "$(tail -n +2 ../BOM/$PROJECT_NAME-$FOLDER_NAME.html)" > ../BOM/$PROJECT_NAME-$FOLDER_NAME.html
+                
+                echo -e "${BLUE}Created BOM${NOCOLOR}"
+
+                # move gerber files to seperate directory
+                mkdir ../../gerber_files/$PROJECT_NAME-$FOLDER_NAME
+                mv ./tmp/* ../../gerber_files/$PROJECT_NAME-$FOLDER_NAME
+
+                echo -e "${BLUE}Moved Gerber Files${NOCOLOR}"
+
+                # remove tmp directory
+                rm -Rf ./tmp
+
+                # move any exported images or PDF files
+                if [[ -f "$FOLDER/$FOLDER_NAME.png" ]]; then
+                    echo -e "${BLUE}Found and moved .PNG${NOCOLOR}"
+                    mv $FOLDER/$FOLDER_NAME.png ../$PROJECT_NAME-$FOLDER_NAME.png
+                fi
+
+                if [[ -f "$FOLDER/$FOLDER_NAME.pdf" ]]; then
+                    echo -e "${BLUE}Found and moved .PDF${NOCOLOR}"
+                    mv $FOLDER/$FOLDER_NAME.pdf ../$PROJECT_NAME-$FOLDER_NAME.pdf
+                fi
+
+                echo -e "${GREEN}$PROJECT_NAME -> $FOLDER_NAME Done${NOCOLOR}"
+            fi
+        fi
     fi
-
-    if [[ -f "../src/ioboard/ioboard.pdf" ]]; then
-        mv ../src/ioboard/ioboard.pdf ../$PROJECT_NAME-ioboard.pdf
-    fi
-fi
-
-MB_FILE=../src/mainboard/mainboard.brd
-if [[ -f "$MB_FILE" ]]; then
-    rm -Rf ../../gerber_files/$PROJECT_NAME-mainboard
-
-    mkdir ./tmp-mb
-    eagle -X -dCAMJOB -j./jlcpcb_2_layer_v9.cam -o./tmp-mb $MB_FILE
-    mv ./tmp-mb/tmp-mb/* ./tmp-mb/
-    rm -Rf ./tmp-mb/tmp-mb
-    cd ./tmp-mb
-    for f in * ; do mv -- "$f" "$PROJECT_NAME-$f" ; done
-    cd ../
-
-    mv ./tmp-mb/$PROJECT_NAME-BOM.html ../BOM/$PROJECT_NAME-mainboard.html
-    echo "$(tail -n +2 ../BOM/$PROJECT_NAME-mainboard.html)" > ../BOM/$PROJECT_NAME-mainboard.html
-
-    mkdir ../../gerber_files/$PROJECT_NAME-mainboard
-    mv ./tmp-mb/* ../../gerber_files/$PROJECT_NAME-mainboard
-    
-    rm -Rf ./tmp-mb
-
-    if [[ -f "../src/mainboard/mainboard.png" ]]; then
-        mv ../src/mainboard/mainboard.png ../$PROJECT_NAME-mainboard.png
-    fi
-
-    if [[ -f "../src/mainboard/mainboard.pdf" ]]; then
-        mv ../src/mainboard/mainboard.pdf ../$PROJECT_NAME-mainboard.pdf
-    fi
-fi
+done
