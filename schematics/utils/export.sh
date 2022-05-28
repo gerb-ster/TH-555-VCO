@@ -22,7 +22,7 @@ for FOLDER in ../src/*; do
             if [[ -f "$BRD_FILE" ]]; then
                 # remove old files
                 rm -Rf ../../gerber_files/$PROJECT_NAME-$FOLDER_NAME
-                rm -Rf ../../schematics/*.pdf
+                rm -Rf ../../schematics/$PROJECT_NAME-$FOLDER_NAME.pdf
 
                 echo -e "${RED}Removed old Gerber Files for $PROJECT_NAME${NOCOLOR}"
 
