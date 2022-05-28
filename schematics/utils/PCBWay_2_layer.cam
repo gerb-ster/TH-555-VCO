@@ -4,12 +4,12 @@
         "name": "Gerb Sterrenburg"
     },
     "description": {
-        "EN": "<b>JLCPCB 2-Layer CAM job</b><p>\n\nFor Eagle 8.6.0 to 9.6.2<p>\n\nTop Copper:      pcbname.GTL<br>\nTop Solder Mask: pcbname.GTS<br>\nTop Silkscreen:  pcbname.GTO<br>\nTop Paste:       pcbname.GTP<p>\n\nBottom Copper:      pcbname.GBL<br>\nBottom Solder Mask: pcbname.GBS<br>\nBottom Silkscreen:  pcbname.GBO<br>\nBottom Paste:       pcbname.GBP<p>\n\nProfile: pcbname.GKO (Dimension (20) and Milling (46) layers are used)<p>\nDrill Layer: pcbname.XLN (Both plated and non-plated holes are merged in this file)<p>\n\nPlease refer to <a href=\"https://support.jlcpcb.com/article/43-how-to-export-eagle-pcb-to-gerber-files\">How to Generate Gerber and Drill Files from Eagle</a> for more information.<p>\n\nEmail: support@jlcpcb.com<p>\nLast updated: 2020/11/18"
+        "EN": "EAGLE default 2 layer CAM job."
     },
-    "output_type": "zip",
+    "output_type": "directory",
     "outputs": [
         {
-            "filename_prefix": "GerberJob",
+            "filename_prefix": "",
             "format_specifier": {
                 "decimal": 4,
                 "integer": 3
@@ -18,22 +18,6 @@
             "output_type": "gerber",
             "outputs": [
                 {
-                    "board_outline": true,
-                    "config": {
-                        "file_function": "Profile",
-                        "plating": "non-plated"
-                    },
-                    "filename_format": "%N.GKO",
-                    "layers": [
-                        46,
-                        20
-                    ],
-                    "milling": true,
-                    "name": "Board Outline",
-                    "polarity": "positive",
-                    "type": "gerber_layer"
-                },
-                {
                     "board_outline": false,
                     "config": {
                         "file_function": "Copper",
@@ -41,7 +25,7 @@
                         "layer_details": "mixed",
                         "layer_type": "top"
                     },
-                    "filename_format": "%N.GTL",
+                    "filename_format": "copper_top.gbr",
                     "layers": [
                         1,
                         18,
@@ -59,7 +43,7 @@
                         "layer_details": "mixed",
                         "layer_type": "bottom"
                     },
-                    "filename_format": "%N.GBL",
+                    "filename_format": "copper_bottom.gbr",
                     "layers": [
                         16,
                         17,
@@ -70,13 +54,26 @@
                     "type": "gerber_layer"
                 },
                 {
+                    "board_outline": true,
+                    "config": {
+                        "file_function": "Profile",
+                        "plating": "non-plated"
+                    },
+                    "filename_format": "profile.gbr",
+                    "layers": [
+                    ],
+                    "milling": true,
+                    "polarity": "positive",
+                    "type": "gerber_layer"
+                },
+                {
                     "board_outline": false,
                     "config": {
                         "file_function": "Soldermask",
                         "index": 1,
                         "layer_type": "top"
                     },
-                    "filename_format": "%N.GTS",
+                    "filename_format": "soldermask_top.gbr",
                     "layers": [
                         29
                     ],
@@ -91,7 +88,7 @@
                         "index": 1,
                         "layer_type": "bottom"
                     },
-                    "filename_format": "%N.GBS",
+                    "filename_format": "soldermask_bottom.gbr",
                     "layers": [
                         30
                     ],
@@ -105,7 +102,7 @@
                         "file_function": "Paste",
                         "layer_type": "top"
                     },
-                    "filename_format": "%N.GTP",
+                    "filename_format": "solderpaste_top.gbr",
                     "layers": [
                         31
                     ],
@@ -120,7 +117,7 @@
                         "file_function": "Paste",
                         "layer_type": "bottom"
                     },
-                    "filename_format": "%N.GBP",
+                    "filename_format": "solderpaste_bottom.gbr",
                     "layers": [
                         32
                     ],
@@ -136,7 +133,7 @@
                         "index": 1,
                         "layer_type": "top"
                     },
-                    "filename_format": "%N.GTO",
+                    "filename_format": "silkscreen_top.gbr",
                     "layers": [
                         21,
                         25
@@ -153,7 +150,7 @@
                         "index": 1,
                         "layer_type": "bottom"
                     },
-                    "filename_format": "%N.GBO",
+                    "filename_format": "silkscreen_bottom.gbr",
                     "layers": [
                         22,
                         26
@@ -180,7 +177,7 @@
                         "PTH": true,
                         "VIA": true
                     },
-                    "filename_format": "%N.XLN",
+                    "filename_format": "drills.xln",
                     "layers": {
                         "from": 1,
                         "to": 16
@@ -191,7 +188,7 @@
             ]
         },
         {
-            "filename_prefix": "CAMOutputs/Assembly",
+            "filename_prefix": "Assembly",
             "output_type": "assembly",
             "outputs": [
                 {
@@ -205,13 +202,13 @@
             ]
         },
         {
-            "filename_prefix": "CAMOutputs/DrawingFiles",
+            "filename_prefix": "DrawingFiles",
             "output_type": "drawing",
             "outputs": [
             ]
         }
     ],
-    "timestamp": "2021-05-07T11:14:03",
+    "timestamp": "2022-05-28T21:49:41",
     "type": "EAGLE CAM job",
     "units": "metric",
     "version": "9.2.0"
